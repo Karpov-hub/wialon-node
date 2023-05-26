@@ -1,0 +1,43 @@
+{
+  "development": {
+    "username": "hse",
+    "password": "hse",
+    "database": "wialondb",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "seederStorage": "sequelize",
+    "logging": false,
+    "seederStorageTableName": "sequelize_data"
+  },
+  "localtest": {
+    "username": "hse",
+    "password": "hse",
+    "database": "wialontestdb",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false,
+    "seederStorage": "sequelize",
+    "seederStorageTableName": "sequelize_data"
+  },
+  "test": {
+    "use_env_variable": "DB_CONN_STRING",
+    "dialect": "postgres",
+    "seederStorage": "sequelize",
+    "logging": false,
+    "seederStorageTableName": "sequelize_data"
+  },
+  "staging": {
+    "use_env_variable": "DB_CONN_STRING",
+    "dialect": "postgres",
+    "seederStorage": "sequelize",
+    "logging": false,
+    "seederStorageTableName": "sequelize_data"
+  },
+  "production": {
+    "use_env_variable": "DB_CONN_STRING",
+    "dialect": "postgres",
+    "seederStorage": "sequelize",
+    "logging": false,
+    "seederStorageTableName": "sequelize_data"
+  }
+}

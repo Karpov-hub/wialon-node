@@ -1,0 +1,86 @@
+version: "3"
+services:
+  serv:
+    build:
+        context: .
+        dockerfile: Serv.Dockerfile
+        args:
+          - NODE_ENV=test
+    env_file:
+      - test.env
+    ports:
+      - "8012:8012"
+      - "8008:8008"
+    volumes:
+      - ./docs:/app/docs
+      - ./reports:/app/reports
+      - ./upload:/app/upload
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - minio
+      - nats
+      - postgres
+      - redis
+    networks:
+      - wialon-test-net
+    command: sh -c "sleep 3 && cd /app/packages/db && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && cd /app && npx lerna run dstart --parallel"
+  tests:
+    build:
+        context: .
+        dockerfile: Test.Dockerfile
+        args:
+          - NODE_ENV=test
+    env_file:
+      - test.env
+    networks:
+      - wialon-test-net
+    volumes:
+      - ./docs:/app/docs
+      - ./reports:/app/reports
+      - ./upload:/app/upload
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - serv
+      - minio
+      - nats
+      - postgres
+      - redis
+    command: sh -c "cd /app/custom_report_generator && docker build -t customreport . && cd .. && mkdir docs/json && sleep 5 && npm run atest && node packages/chai-documentator/lib/htmlgenerator.js"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+
+  redis:
+    logging:
+      driver: none
+    image: "redis:alpine"
+    networks:
+      - wialon-test-net
+  nats:
+    logging:
+      driver: none
+    image: "bitnami/nats"
+    networks:
+      - wialon-test-net
+  postgres:
+    logging:
+      driver: none
+    image: "postgres:12.13-alpine"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=Passw0rd
+    networks:
+      - wialon-test-net
+  minio:
+    image: minio/minio
+    environment:
+      - MINIO_ROOT_USER=miniotest
+      - MINIO_ROOT_PASSWORD=miniotest
+    networks:
+      - wialon-test-net
+    command: minio server /data --console-address ":9001"
+
+
+networks:
+  wialon-test-net:

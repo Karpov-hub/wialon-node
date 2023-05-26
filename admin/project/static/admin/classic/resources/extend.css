@@ -1,0 +1,1741 @@
+html,body,#loadDiv {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+#loadDiv {
+    background: url(images/477.gif) center center no-repeat;    
+}
+
+#loadDiv {
+    position: absolute;
+    top:0;
+    left:0;
+    background-color: rgba(255,255,255,.5);
+    overflow: hidden;
+}
+.x-grid-cell-inner-checkcolumn {
+    padding: 7px 10px 7px 10px;
+}
+.x-grid-cell-inner-checkcolumn {
+    line-height: 0;
+    font-size: 0;
+}
+.x-grid-checkcolumn {
+    width: 18px;
+    height: 18px;
+    font: 18px/1 FontAwesome;
+    color: #919191;
+}
+
+.x-grid-checkcolumn {
+    display: inline-block;
+}
+.x-grid-checkcolumn:before {
+    content: "\f096";
+}
+.x-grid-checkcolumn-checked:before {
+    content: "\f046";
+}
+.x-grid-checkcolumn-checked {
+1 FontAwesome;
+}
+
+.x-action-col-icon {
+    margin: 0 10px 0 0;
+}
+
+.x-tagfield-body {
+  vertical-align: top; }
+
+.x-tagfield {
+  height: auto!important;
+
+  padding: 0!important;
+
+  cursor: text;
+  min-height: 24px;
+  overflow-y: auto; }
+
+.x-tagfield .x-tagfield-list {
+  padding: 1px 3px;
+  margin: 0; }
+
+.x-tagfield-list.x-tagfield-singleselect {
+  white-space: nowrap;
+  overflow: hidden; }
+
+.x-tagfield-input, .x-tagfield-item {
+  vertical-align: top;
+  display: inline-block;
+  position: relative; }
+
+.x-tagfield-input input, .x-tagfield-input div {
+  border: 0 none;
+  margin: 0;
+  background: none;
+  width: 100%; }
+
+.x-tagfield-input-field {
+  line-height: 20px; }
+
+.x-tagfield-emptyinput {
+  display: none; }
+
+.x-tagfield-stacked .x-tagfield-item {
+  display: block; }
+
+.x-tagfield-item {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #f5f5f5;
+  border: 1px solid #dcdcdc;
+  padding: 0px 1px 0px 5px !important;
+  margin: 1px 4px 1px 0;
+  cursor: default; }
+
+.x-field:not(.x-item-disabled) .x-tagfield-item:hover {
+  background: #e4e4e4;
+  border: 1px solid #999999; }
+
+.x-field:not(.x-item-disabled) .x-tagfield-item.x-tagfield-item-selected {
+  border: 1px solid #157fcc !important;
+  background: #c4e2f8 !important;
+  color: black !important; }
+
+.x-tagfield-item-text {
+  line-height: 24px;
+  padding-right: 20px; }
+
+.x-tagfield-item-close {
+  cursor: pointer;
+  position: absolute;
+}
+  
+.x-form-text-default .x-tagfield-item-close {
+    width: 12px;
+    height: 12px;
+    top: 5px;
+    right: 3px;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=85);
+    opacity: 0.85;
+    font: 12px/1 FontAwesome;
+    color: #919191;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-form-text-default .x-tagfield-item-close:before {
+    content: "\f00d";
+}
+
+.x-field:not(.x-item-disabled) .x-tagfield-item.x-tagfield-item-selected .x-tagfield-item-close {
+  background-position: 0px 12px; }
+
+.x-field:not(.x-item-disabled) .x-tagfield-item-close:hover {
+  background-position: 24px 0px; }
+
+.x-field:not(.x-item-disabled) .x-tagfield-item.x-tagfield-item-selected .x-tagfield-item-close:hover {
+  background-position: 24px 12px; }
+
+.x-field:not(.x-item-disabled) .x-tagfield-item-close:active {
+  background-position: 12px 0px; }
+
+.x-field:not(.x-item-disabled) .x-tagfield-item.x-tagfield-item-selected .x-tagfield-item-close:active {
+  background-position: 12px 12px; }
+  
+
+.x-boundlist {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #e1e1e1;
+  background: white; }
+
+
+.x-boundlist-item {
+  padding: 0 6px;
+  font: normal 13px helvetica, arial, verdana, sans-serif;
+  line-height: 22px;
+  cursor: pointer;
+  cursor: hand;
+  position: relative;
+
+  border-width: 1px;
+  border-style: dotted;
+  border-color: white; }
+
+
+.x-boundlist-selected {
+  background: #c1ddf1;
+  border-color: #c1ddf1; }
+
+
+.x-boundlist-item-over {
+  background: #d6e8f6;
+  border-color: #d6e8f6; }
+
+
+.x-boundlist-floating {
+  border-top-width: 0; }
+
+
+.x-boundlist-above {
+  border-top-width: 1px;
+  border-bottom-width: 1px; }
+
+
+
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:1 */
+.x-datepicker {
+    position: relative;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:4 */
+.x-datepicker .x-monthpicker {
+    left: 0;
+    top: 0;
+    display: block;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:10 */
+.x-datepicker .x-monthpicker-months,
+.x-datepicker .x-monthpicker-years {
+    height: 100%;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:16 */
+.x-datepicker-inner {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: separate;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:22 */
+.x-datepicker-cell {
+    padding: 0;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:26 */
+.x-datepicker-header {
+    position: relative;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:30 */
+.x-datepicker-arrow {
+    position: absolute;
+    outline: none;
+    font-size: 0;
+    display: table;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:37 */
+.x-datepicker-arrow:before {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:45 */
+.x-datepicker-column-header {
+    padding: 0;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:49 */
+.x-datepicker-date {
+    display: block;
+    text-decoration: none;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:54 */
+.x-monthpicker {
+    display: table;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:57 */
+.x-monthpicker-body {
+    height: 100%;
+    position: relative;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:62 */
+.x-monthpicker-months,
+.x-monthpicker-years {
+    float: left;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:67 */
+.x-monthpicker-item {
+    float: left;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:71 */
+.x-monthpicker-item-inner {
+    display: block;
+    text-decoration: none;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:76 */
+.x-monthpicker-yearnav-button-ct {
+    float: left;
+    text-align: center;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:81 */
+.x-monthpicker-yearnav-button {
+    display: inline-block;
+    outline: none;
+    font-size: 0;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:87 */
+.x-monthpicker-buttons {
+    width: 100%;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:91 */
+.x-datepicker .x-monthpicker-buttons {
+    position: absolute;
+    bottom: 0;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/picker/Date.scss:96 */
+.x-datepicker-month .x-btn-split > .x-btn-button:after {
+    content: none;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:9 */
+.x-datepicker {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d0d0d0;
+    background-color: #fff;
+    width: 310px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:19 */
+.x-datepicker-header {
+    padding: 0;
+    text-align: center;
+    background-color: #ececec;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:29 */
+.x-datepicker-arrow {
+    width: 32px;
+    height: 44px;
+    top: 0px;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    color: #919191;
+    background-color: #ececec;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+    opacity: 0.7;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:51 */
+div.x-datepicker-arrow:hover {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:56 */
+.x-datepicker-next {
+    right: 0;
+    font: 16px/1 FontAwesome;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-datepicker-next:before {
+    content: "\f101";
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:65 */
+.x-datepicker-prev {
+    left: 0;
+    font: 16px/1 FontAwesome;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-datepicker-prev:before {
+    content: "\f100";
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:74 */
+.x-datepicker-month {
+    background: transparent;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:77 */
+.x-datepicker-month .x-btn,
+.x-datepicker-month .x-btn .x-btn-tc,
+.x-datepicker-month .x-btn .x-btn-tl,
+.x-datepicker-month .x-btn .x-btn-tr,
+.x-datepicker-month .x-btn .x-btn-mc,
+.x-datepicker-month .x-btn .x-btn-ml,
+.x-datepicker-month .x-btn .x-btn-mr,
+.x-datepicker-month .x-btn .x-btn-bc,
+.x-datepicker-month .x-btn .x-btn-bl,
+.x-datepicker-month .x-btn .x-btn-br {
+    background: transparent;
+    border-width: 0 !important;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:93 */
+.x-datepicker-month .x-btn-inner {
+    color: #404040;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:98 */
+.x-datepicker-month .x-btn-split-right:after,
+.x-datepicker-month .x-btn-over .x-btn-split-right:after {
+    content: "\f107";
+    font: 16px/1 FontAwesome;
+    color: #606060;
+    background: none;
+    padding: 0;
+    text-align: right;
+    width: 16px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:111 */
+.x-datepicker-month .x-btn {
+    padding: 14px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:115 */
+.x-datepicker-month .x-btn-over {
+    border-color: transparent;
+    background: #dfdfdf;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:120 */
+.x-datepicker-month .x-btn.x-btn-pressed {
+    border-color: transparent;
+    background: #d3d3d3;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:125 */
+.x-datepicker-month .x-btn-inner {
+    font-size: 15px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:130 */
+.x-datepicker-column-header {
+    width: 44px;
+    color: #404040;
+    font: 400 13px 'Open Sans', 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
+    text-align: right;
+    background-color: #ececec;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:149 */
+.x-datepicker-column-header-inner {
+    line-height: 36px;
+    padding: 0 15px 0 0;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:154 */
+.x-datepicker-cell {
+    text-align: right;
+    border: 0;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:163 */
+.x-datepicker-date {
+    padding: 0 15px 0 0;
+    font: 300 13px 'Open Sans', 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
+    color: #404040;
+    cursor: pointer;
+    line-height: 36px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:173 */
+div.x-datepicker-date:hover {
+    color: #404040;
+    background-color: #ececec;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:178 */
+.x-datepicker-selected {
+    border-style: solid;
+    border-color: #7fb5e4;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:181 */
+.x-datepicker-selected div.x-datepicker-date {
+    background-color: #5fa2dd;
+    color: #fff;
+    font-weight: 300;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:188 */
+.x-datepicker-today {
+    border-color: darkred;
+    border-style: solid;
+    background-color: #bfdaf1;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:199 */
+.x-datepicker-prevday .x-datepicker-date,
+.x-datepicker-nextday .x-datepicker-date {
+    color: #d0d0d0;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:206 */
+.x-datepicker-disabled .x-datepicker-date {
+    background-color: #eee;
+    cursor: default;
+    color: silver;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:214 */
+.x-datepicker-disabled div.x-datepicker-date:hover {
+    background-color: #eee;
+    color: silver;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:219 */
+.x-datepicker-footer,
+.x-monthpicker-buttons {
+    padding: 6px 0;
+    background-color: #fff;
+    text-align: center;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:236 */
+.x-datepicker-footer .x-btn,
+.x-monthpicker-buttons .x-btn {
+    margin: 0 3px 0 2px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:242 */
+.x-monthpicker {
+    width: 310px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d0d0d0;
+    background-color: #fff;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:252 */
+.x-monthpicker-months {
+    border-width: 0 1px 0 0;
+    border-color: #d0d0d0;
+    border-style: solid;
+    width: 154px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:261 */
+.x-monthpicker-months .x-monthpicker-item {
+    width: 76px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:266 */
+.x-monthpicker-years {
+    width: 154px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:269 */
+.x-monthpicker-years .x-monthpicker-item {
+    width: 77px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:274 */
+.x-monthpicker-item {
+    margin: 5px 0 5px;
+    font: 300 13px 'Open Sans', 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
+    text-align: center;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:280 */
+.x-monthpicker-item-inner {
+    margin: 0 5px 0 5px;
+    color: #404040;
+    border: 0;
+    line-height: 37px;
+    cursor: pointer;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:295 */
+a.x-monthpicker-item-inner:hover {
+    color: #404040;
+    background-color: #ececec;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:301 */
+.x-monthpicker-item a.x-monthpicker-selected {
+    background-color: #5fa2dd;
+    color: #fff;
+    border-style: solid;
+    border-color: #7fb5e4;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:308 */
+.x-monthpicker-yearnav {
+    height: 47px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:312 */
+.x-monthpicker-yearnav-button-ct {
+    width: 77px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:316 */
+.x-monthpicker-yearnav-button {
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+    opacity: 0.7;
+    -webkit-touch-callout: none;
+    color: #919191;
+    background-color: #fff;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:337 */
+a.x-monthpicker-yearnav-button:hover {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:342 */
+.x-monthpicker-yearnav-next {
+    font: 16px/1 FontAwesome;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-monthpicker-yearnav-next:before {
+    content: "\f101";
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:356 */
+.x-monthpicker-yearnav-prev {
+    font: 16px/1 FontAwesome;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-monthpicker-yearnav-prev:before {
+    content: "\f100";
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:371 */
+.x-monthpicker-small .x-monthpicker-item {
+    margin: 2px 0 2px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:375 */
+.x-monthpicker-small .x-monthpicker-item-inner {
+    margin: 0 5px 0 5px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:379 */
+.x-monthpicker-small .x-monthpicker-yearnav {
+    height: 41px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/picker/Date.scss:383 */
+.x-monthpicker-small .x-monthpicker-yearnav-button {
+    margin-top: 12px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
+.x-cmd-slicer.x-datepicker-header:before {
+    display: none;
+    content: "x-slicer:stretch:bottom" !important;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
+.x-cmd-slicer.x-datepicker-footer:before {
+    display: none;
+    content: "x-slicer:stretch:bottom" !important;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/form/field/Date.scss:1 */
+.x-form-date-trigger {
+    font-size: 16px!important;
+    font-family: FontAwesome!important;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-form-date-trigger:before {
+    content: "\f073"!important;
+}
+
+
+/* http://localhost:1843/classic/theme-base/sass/src/grid/plugin/RowEditing.scss:1 */
+.x-grid-row-editor-wrap {
+    position: absolute;
+    overflow: visible;
+    z-index: 2;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/grid/plugin/RowEditing.scss:8 */
+.x-grid-row-editor {
+    position: absolute;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/grid/plugin/RowEditing.scss:12 */
+.x-grid-row-editor-buttons {
+    position: absolute;
+    white-space: nowrap;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowEditing.scss:2 */
+.x-grid-row-editor .x-field {
+    margin: 0 3px 0 2px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowEditing.scss:7 */
+.x-grid-row-editor .x-form-display-field {
+    padding: 6px 7px 5px 8px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowEditing.scss:16 */
+.x-grid-row-editor .x-form-action-col-field {
+    padding: 7px 1px 7px 2px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowEditing.scss:27 */
+.x-grid-row-editor .x-form-text {
+    padding: 5px 6px 4px 7px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowEditing.scss:31 */
+.x-gecko .x-grid-row-editor .x-form-text {
+    padding-left: 6px;
+    padding-right: 5px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowEditing.scss:40 */
+.x-grid-row-editor .x-panel-body {
+    border-top: 1px solid #d0d0d0 !important;
+    border-bottom: 1px solid #d0d0d0 !important;
+    padding: 5px 0 5px 0;
+    background-color: #e5edf4;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowEditing.scss:50 */
+.x-grid-with-col-lines .x-grid-row-editor .x-form-cb {
+    margin-right: 1px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowEditing.scss:98 */
+.x-grid-row-editor-buttons {
+    border-color: #d0d0d0;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowEditing.scss:102 */
+.x-row-editor-update-button {
+    margin-right: 3px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowEditing.scss:105 */
+.x-row-editor-cancel-button {
+    margin-left: 2px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowEditing.scss:121 */
+.x-grid-row-editor-errors .x-tip-body {
+    padding: 5px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowEditing.scss:126 */
+.x-grid-row-editor-errors-item {
+    list-style: disc;
+    margin-left: 15px;
+}
+
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:187 */
+.x-grid-row-editor-buttons-default-bottom {
+    -moz-border-radius-topleft: 0;
+    -webkit-border-top-left-radius: 0;
+    border-top-left-radius: 0;
+    -moz-border-radius-topright: 0;
+    -webkit-border-top-right-radius: 0;
+    border-top-right-radius: 0;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 5px 5px 5px 5px;
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+    background-color: #e5edf4;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:237 */
+.x-grid-row-editor-buttons-default-bottom-mc {
+    background-color: #e5edf4;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:264 */
+.x-nbr .x-grid-row-editor-buttons-default-bottom {
+    padding: 0 !important;
+    border-width: 0 !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:281 */
+.x-grid-row-editor-buttons-default-bottom-frameInfo {
+    font-family: th-0-5-5-5-0-1-1-1-5-5-5-5;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:347 */
+.x-grid-row-editor-buttons-default-bottom-tl {
+    background-position: 0 -10px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:351 */
+.x-grid-row-editor-buttons-default-bottom-tr {
+    background-position: right -15px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:355 */
+.x-grid-row-editor-buttons-default-bottom-bl {
+    background-position: 0 -20px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:359 */
+.x-grid-row-editor-buttons-default-bottom-br {
+    background-position: right -25px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:363 */
+.x-grid-row-editor-buttons-default-bottom-ml {
+    background-position: 0 top;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:371 */
+.x-grid-row-editor-buttons-default-bottom-mr {
+    background-position: right top;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:379 */
+.x-grid-row-editor-buttons-default-bottom-tc {
+    background-position: 0 0;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:383 */
+.x-grid-row-editor-buttons-default-bottom-bc {
+    background-position: 0 -5px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:388 */
+.x-grid-row-editor-buttons-default-bottom-tr,
+.x-grid-row-editor-buttons-default-bottom-br,
+.x-grid-row-editor-buttons-default-bottom-mr {
+    padding-right: 5px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:394 */
+.x-grid-row-editor-buttons-default-bottom-tl,
+.x-grid-row-editor-buttons-default-bottom-bl,
+.x-grid-row-editor-buttons-default-bottom-ml {
+    padding-left: 5px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:400 */
+.x-grid-row-editor-buttons-default-bottom-tc {
+    height: 0;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:403 */
+.x-grid-row-editor-buttons-default-bottom-bc {
+    height: 5px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:407 */
+.x-grid-row-editor-buttons-default-bottom-tl,
+.x-grid-row-editor-buttons-default-bottom-bl,
+.x-grid-row-editor-buttons-default-bottom-tr,
+.x-grid-row-editor-buttons-default-bottom-br,
+.x-grid-row-editor-buttons-default-bottom-tc,
+.x-grid-row-editor-buttons-default-bottom-bc,
+.x-grid-row-editor-buttons-default-bottom-ml,
+.x-grid-row-editor-buttons-default-bottom-mr {
+    background-image: url(images/grid-row-editor-buttons/grid-row-editor-buttons-default-bottom-corners.gif);
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:453 */
+.x-grid-row-editor-buttons-default-bottom-ml,
+.x-grid-row-editor-buttons-default-bottom-mr {
+    background-image: url(images/grid-row-editor-buttons/grid-row-editor-buttons-default-bottom-sides.gif);
+    background-repeat: repeat-y;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:464 */
+.x-grid-row-editor-buttons-default-bottom-mc {
+    padding: 5px 1px 1px 1px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
+.x-cmd-slicer.x-grid-row-editor-buttons-default-bottom:before {
+    display: none;
+    content: "x-slicer:frame:0 5px 5px 5px, corners:url(images/grid-row-editor-buttons/grid-row-editor-buttons-default-bottom-corners.gif), sides:url(images/grid-row-editor-buttons/grid-row-editor-buttons-default-bottom-sides.gif)" !important;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:187 */
+.x-grid-row-editor-buttons-default-top {
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+    -moz-border-radius-bottomright: 0;
+    -webkit-border-bottom-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 5px 5px 5px 5px;
+    border-width: 1px 1px 0 1px;
+    border-style: solid;
+    background-color: #e5edf4;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:237 */
+.x-grid-row-editor-buttons-default-top-mc {
+    background-color: #e5edf4;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:264 */
+.x-nbr .x-grid-row-editor-buttons-default-top {
+    padding: 0 !important;
+    border-width: 0 !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:281 */
+.x-grid-row-editor-buttons-default-top-frameInfo {
+    font-family: th-5-5-0-5-1-1-0-1-5-5-5-5;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:347 */
+.x-grid-row-editor-buttons-default-top-tl {
+    background-position: 0 -10px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:351 */
+.x-grid-row-editor-buttons-default-top-tr {
+    background-position: right -15px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:355 */
+.x-grid-row-editor-buttons-default-top-bl {
+    background-position: 0 -20px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:359 */
+.x-grid-row-editor-buttons-default-top-br {
+    background-position: right -25px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:363 */
+.x-grid-row-editor-buttons-default-top-ml {
+    background-position: 0 top;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:371 */
+.x-grid-row-editor-buttons-default-top-mr {
+    background-position: right top;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:379 */
+.x-grid-row-editor-buttons-default-top-tc {
+    background-position: 0 0;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:383 */
+.x-grid-row-editor-buttons-default-top-bc {
+    background-position: 0 -5px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:388 */
+.x-grid-row-editor-buttons-default-top-tr,
+.x-grid-row-editor-buttons-default-top-br,
+.x-grid-row-editor-buttons-default-top-mr {
+    padding-right: 5px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:394 */
+.x-grid-row-editor-buttons-default-top-tl,
+.x-grid-row-editor-buttons-default-top-bl,
+.x-grid-row-editor-buttons-default-top-ml {
+    padding-left: 5px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:400 */
+.x-grid-row-editor-buttons-default-top-tc {
+    height: 5px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:403 */
+.x-grid-row-editor-buttons-default-top-bc {
+    height: 0;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:407 */
+.x-grid-row-editor-buttons-default-top-tl,
+.x-grid-row-editor-buttons-default-top-bl,
+.x-grid-row-editor-buttons-default-top-tr,
+.x-grid-row-editor-buttons-default-top-br,
+.x-grid-row-editor-buttons-default-top-tc,
+.x-grid-row-editor-buttons-default-top-bc,
+.x-grid-row-editor-buttons-default-top-ml,
+.x-grid-row-editor-buttons-default-top-mr {
+    background-image: url(images/grid-row-editor-buttons/grid-row-editor-buttons-default-top-corners.gif);
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:453 */
+.x-grid-row-editor-buttons-default-top-ml,
+.x-grid-row-editor-buttons-default-top-mr {
+    background-image: url(images/grid-row-editor-buttons/grid-row-editor-buttons-default-top-sides.gif);
+    background-repeat: repeat-y;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/frame.scss:464 */
+.x-grid-row-editor-buttons-default-top-mc {
+    padding: 1px 1px 5px 1px;
+}
+/* http://localhost:1843/classic/theme-base/sass/etc/mixins/slicer.scss:83 */
+.x-cmd-slicer.x-grid-row-editor-buttons-default-top:before {
+    display: none;
+    content: "x-slicer:frame:5px 5px 0 5px, corners:url(images/grid-row-editor-buttons/grid-row-editor-buttons-default-top-corners.gif), sides:url(images/grid-row-editor-buttons/grid-row-editor-buttons-default-top-sides.gif)" !important;
+}
+
+.add
+{
+    background-image: url( ./images/add.png ) !important;
+}
+
+.edit
+{
+	background-image: url( ./images/edit.png ) !important;
+}
+
+.delete
+{
+	background-image: url( ./images/delete.png ) !important;
+}
+
+.activate
+{
+	background-image: url( ./images/activate.png ) !important;
+}
+
+.inactivate
+{
+	background-image: url( ./images/inactivate.png ) !important;
+}
+
+.filter
+{
+	background-image: url( ./images/filter.png ) !important;
+}
+
+.clear-filters
+{
+	background-image: url( ./images/clear-filters.png ) !important;
+}
+.x-action-col-cell img {
+    height: 16px;
+	width: 16px;
+	cursor: pointer;
+}
+
+.x-action-col-img-noaction {
+	cursor: default !important;
+}
+.x-operator-button {
+    width: 16px;
+    height: 16px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    -moz-user-focus: ignore; /* https://developer.mozilla.org/en/CSS/-moz-user-focus */
+    cursor: pointer;
+    position: absolute;
+    overflow:  hidden; /* IE 6 :-( */
+    margin-top: 4px;
+    background-color: white;
+}
+
+.x-operator-button-equal {
+    background-image: url(./images/operator-equal.gif) !important;
+}
+.x-operator-button-not-equal {
+    background-image: url(./images/operator-not-equal.gif) !important;
+}
+.x-operator-button-great-than {
+    background-image: url(./images/operator-great-than.gif) !important;
+}
+.x-operator-button-less-than {
+    background-image: url(./images/operator-less-than.gif) !important;
+}
+.x-operator-button-great-than-equal {
+    background-image: url(./images/operator-great-than-equal.gif) !important;
+}
+.x-operator-button-less-than-equal {
+    background-image: url(./images/operator-less-than-equal.gif) !important;
+}
+
+/*.ext-ux-operatorbutton-mouse-over-input {
+    background-position: 0 0px;
+}
+
+.ext-ux-operatorbutton-mouse-over-button {
+    background-position: 0 -24px;
+}
+
+.ext-ux-operatorbutton-mouse-down {
+    background-position: 0 -36px;
+}
+*/
+
+
+
+.x-grid-header-ct .x-column-filtered .x-column-header-inner .x-column-header-text {
+    font-weight: bold;
+	font-style: italic;
+	color: green;
+}
+
+.ext-ux-clearbutton {
+    width: 12px;
+    height: 12px;
+    background-image: url(./images/clear-text-icon.gif) !important;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    -moz-user-focus: ignore; /* https://developer.mozilla.org/en/CSS/-moz-user-focus */
+    cursor: pointer;
+    position: absolute;
+    overflow:  hidden; /* IE 6 :-( */
+    margin-top: 4px;
+    background-color: white;
+}
+
+.ext-ux-clearbutton-mouse-over-input {
+    background-position: 0 -12px;
+}
+
+.ext-ux-clearbutton-mouse-over-button {
+    background-position: 0 -24px;
+}
+
+.ext-ux-clearbutton-mouse-down {
+    background-position: 0 -36px;
+}
+
+.ext-ux-clearbutton-on {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .35s linear;
+    -webkit-transition: opacity .35s linear;
+    -moz-transition: opacity .35s linear;
+    -o-transition: opacity .35s linear;
+    -ms-transition: opacity .35s linear;
+    -khtml-transition: opacity .35s linear;
+}
+
+.ext-ux-clearbutton-off {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .35s linear, visibility .0s linear .35s;
+    -webkit-transition: opacity .35s linear, visibility .0s linear .35s;
+    -moz-transition: opacity .35s linear, visibility .0s linear .35s;
+    -o-transition: opacity .35s linear, visibility .0s linear .35s;
+    -ms-transition: opacity .35s linear, visibility .0s linear .35s;
+    -khtml-transition: opacity .35s linear, visibility .0s linear .35s;
+}
+
+/*
+.x-mask {
+    background: none!important;    
+}
+*/
+
+.x-form-item-default.x-item-disabled {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+    opacity: 0.8!important;
+}
+
+.order-canceled {
+    color: red;    
+}
+
+.x-treelist {
+    background-color: #fff;
+    background-position-x: 16px;
+    overflow: hidden;
+    padding: 0 0 0 0;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:543 */
+.x-treelist-container,
+.x-treelist-root-container {
+    width: 100%;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:548 */
+.x-treelist-toolstrip {
+    display: none;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:553 */
+.x-treelist-micro > .x-treelist-toolstrip {
+    display: inline-block;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:556 */
+.x-treelist-micro > .x-treelist-root-container {
+    display: none;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:561 */
+.x-treelist-item,
+.x-treelist-container,
+.x-treelist-root-container {
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:570 */
+.x-treelist-item-tool,
+.x-treelist-row,
+.x-treelist-item-wrap {
+    position: relative;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:576 */
+.x-treelist-item-icon,
+.x-treelist-item-expander {
+    display: none;
+    position: absolute;
+    top: 0;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:583 */
+.x-treelist-item-expander {
+    right: 0;
+    cursor: pointer;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:588 */
+.x-treelist-expander-only .x-treelist-item-expandable > * > .x-treelist-item-wrap > * {
+    cursor: pointer;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:592 */
+.x-treelist-item-text {
+    cursor: default;
+    white-space: nowrap;
+    overflow: hidden;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:598 */
+.x-treelist-item-collapsed > .x-treelist-container {
+    display: none;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:602 */
+.x-treelist-item-expandable > * > * > .x-treelist-item-expander,
+.x-treelist-item-icon {
+    display: block;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:607 */
+.x-treelist-item-floated > * > * > .x-treelist-item-expander,
+.x-treelist-item-floated > * > * > .x-treelist-item-icon {
+    display: none;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:612 */
+.x-treelist-expander-first .x-treelist-item-expander {
+    left: 0;
+    right: auto;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:94 */
+.x-treelist-toolstrip {
+    background-color: #f8f8f8;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:125 */
+.x-treelist-item-selected > .x-treelist-row {
+    background-color: #ffefbb;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:129 */
+.x-treelist-item-selected > .x-treelist-row:hover {
+    background-color: #ffefbb;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:134 */
+.x-treelist-item-tool {
+    padding-left: 6px;
+    padding-right: 10px;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:157 */
+.x-treelist-item-icon,
+.x-treelist-item-tool,
+.x-treelist-item-expander {
+    line-height: 32px;
+    text-align: center;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:170 */
+.x-treelist-item-icon,
+.x-treelist-item-tool {
+    color: #5fa2dd;
+    font-size: 16px;
+    width: 16px;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:183 */
+.x-treelist-item-tool {
+    width: 32px;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:193 */
+.x-treelist-item-expander {
+    color: #5fa2dd;
+    font-size: 16px;
+    width: 18px;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:209 */
+.x-treelist-item-expander:after {
+    content: "\f0da";
+    font: 16px/1 FontAwesome;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:213 */
+.x-treelist-item-expanded > * > * > .x-treelist-item-expander:after {
+    content: "\f0d7";
+    font: 16px/1 FontAwesome;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:222 */
+.x-treelist-item-text {
+    color: #404040;
+    margin-left: 22px;
+    margin-right: 18px;
+    font-size: 13px;
+    line-height: 32px;
+    text-overflow: ellipsis;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:238 */
+.x-treelist-row {
+    padding-left: 6px;
+    padding-right: 10px;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:269 */
+.x-treelist-item-floated .x-treelist-container {
+    width: auto;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:272 */
+.x-treelist-item-floated > .x-treelist-row {
+    background-color: #f8f8f8;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:276 */
+.x-treelist-item-floated > .x-treelist-container {
+    margin-left: -16px;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:279 */
+.x-big .x-treelist-item-floated > .x-treelist-container {
+    margin-left: 0;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:285 */
+.x-treelist-item-floated > * > * > .x-treelist-item-text {
+    margin-left: 0;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:289 */
+.x-treelist-item-floated > * .x-treelist-row {
+    padding-left: 0;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:293 */
+.x-treelist-item-floated .x-treelist-row:before {
+    width: 0;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:297 */
+.x-treelist-item-floated > .x-treelist-row:hover {
+    background-color: #f8f8f8;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:300 */
+.x-treelist-item-floated > .x-treelist-row:hover > * > .x-treelist-item-text {
+    color: #404040;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:313 */
+.x-treelist-item-expanded > .x-treelist-item-expander:after {
+    content: "\f0d7";
+    font: 16px/1 FontAwesome;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:318 */
+.x-treelist-item-collapsed > * > .x-treelist-item-expander:after {
+    content: "\f0da";
+    font: 16px/1 FontAwesome;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:324 */
+&.x-treelist-highlight-path .x-treelist-item:hover > * > .x-treelist-item-icon {
+    color: #5fa2dd;
+    transition: color 0.5s;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:328 */
+&.x-treelist-highlight-path .x-treelist-item:hover > * > .x-treelist-item-text {
+    color: #404040;
+    transition: color 0.5s;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:332 */
+&.x-treelist-highlight-path .x-treelist-item:hover > * > .x-treelist-item-expander {
+    color: #5fa2dd;
+    transition: color 0.5s;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:339 */
+.x-treelist-row:hover {
+    background-color: #eaeff4;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:342 */
+.x-treelist-row:hover > * > .x-treelist-item-icon {
+    color: #5fa2dd;
+    transition: color 0.5s;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:346 */
+.x-treelist-row:hover > * > .x-treelist-item-text {
+    color: #404040;
+    transition: color 0.5s;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:350 */
+.x-treelist-row:hover > * > .x-treelist-item-expander {
+    color: #5fa2dd;
+    transition: color 0.5s;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:357 */
+.x-treelist-expander-first .x-treelist-item-icon {
+    left: 18px;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:366 */
+.x-treelist-expander-first .x-treelist-item-text {
+    margin-left: 40px;
+    margin-right: 0;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:376 */
+.x-treelist-expander-first .x-treelist-item-hide-icon > * > * > .x-treelist-item-text {
+    margin-left: 24px;
+}
+/* http://localhost:1843/packages/core/sass/src/list/TreeItem.scss:386 */
+.x-treelist-item-hide-icon > * > * > .x-treelist-item-text {
+    margin-left: 6px;
+}
+
+/* http://localhost:1843/classic/theme-base/sass/src/tree/View.scss:3 */
+.x-autowidth-table .x-grid-item {
+    table-layout: auto;
+    width: auto !important;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/tree/View.scss:8 */
+.x-tree-view {
+    overflow: hidden;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/tree/View.scss:12 */
+.x-tree-elbow-img,
+.x-tree-icon {
+    display: inline-block;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-position: 0 center;
+    vertical-align: top;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/tree/View.scss:21 */
+.x-tree-checkbox {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/tree/View.scss:27 */
+.x-tree-animator-wrap {
+    overflow: hidden;
+}
+
+/* http://localhost:1843/packages/font-awesome/sass/etc/_icons.scss:461 */
+.fa-tree:before {
+    content: "\f1bb";
+}
+
+
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:1 */
+.x-tree-expander {
+    cursor: pointer;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:8 */
+.x-tree-arrows .x-tree-expander {
+    font-size: 16px;
+    font-family: FontAwesome;
+    color: #5fa2dd;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-tree-arrows .x-tree-expander:before {
+    content: "\f0da";
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:12 */
+.x-tree-arrows .x-grid-tree-node-expanded .x-tree-expander {
+    font-size: 16px;
+    font-family: FontAwesome;
+    color: #5fa2dd;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-tree-arrows .x-grid-tree-node-expanded .x-tree-expander:before {
+    content: "\f0d7";
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:55 */
+.x-tree-elbow-plus,
+.x-tree-elbow-end-plus {
+    font-size: 14px;
+    font-family: FontAwesome;
+    color: #5fa2dd;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-tree-elbow-plus:before,
+.x-tree-elbow-end-plus:before {
+    content: "\f0fe";
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:63 */
+.x-grid-tree-node-expanded .x-tree-elbow-plus,
+.x-grid-tree-node-expanded .x-tree-elbow-end-plus {
+    font-size: 14px;
+    font-family: FontAwesome;
+    color: #5fa2dd;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-grid-tree-node-expanded .x-tree-elbow-plus:before,
+.x-grid-tree-node-expanded .x-tree-elbow-end-plus:before {
+    content: "\f146";
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:151 */
+.x-tree-icon {
+    width: 16px;
+    height: 32px;
+    line-height: 32px;
+    color: #5fa2dd;
+    font-size: 16px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:159 */
+.x-tree-elbow-img {
+    width: 18px;
+    height: 32px;
+    line-height: 32px;
+    margin-right: 4px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:173 */
+.x-tree-icon,
+.x-tree-elbow-img,
+.x-tree-checkbox {
+    margin-top: -7px;
+    margin-bottom: -6px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:183 */
+.x-tree-icon-leaf {
+    font-size: 16px;
+    font-family: FontAwesome;
+    color: #5fa2dd;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-tree-icon-leaf:before {
+    content: "\f016";
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:198 */
+.x-tree-icon-parent {
+    font-size: 16px;
+    font-family: FontAwesome;
+    color: #5fa2dd;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-tree-icon-parent:before {
+    content: "\f114";
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:214 */
+.x-tree-icon-parent-expanded {
+    font-size: 16px;
+    font-family: FontAwesome;
+    color: #5fa2dd;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-tree-icon-parent-expanded:before {
+    content: "\f115";
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:230 */
+.x-tree-icon-custom {
+    background-image: none;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:234 */
+.x-tree-icon-custom:before {
+    content: '';
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:246 */
+.x-tree-checkbox {
+    margin-right: 6px;
+    top: 7px;
+    width: 18px;
+    height: 18px;
+    font: 18px/1 FontAwesome;
+    color: #919191;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-tree-checkbox:before {
+    content: "\f096";
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:266 */
+.x-tree-checkbox-checked {
+    font: 18px/1 FontAwesome;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-tree-checkbox-checked:before {
+    content: "\f046";
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:274 */
+.x-grid-tree-loading .x-tree-icon {
+    background-image: url(images/tree/loading.gif);
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:284 */
+.x-tree-node-text {
+    padding-left: 6px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:296 */
+.x-grid-cell-inner-treecolumn {
+    padding: 7px 10px 6px 6px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/ViewDropZone.scss:1 */
+.x-tree-drop-ok-append .x-dd-drop-icon {
+    background-image: url(images/tree/drop-append.png);
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/ViewDropZone.scss:5 */
+.x-tree-drop-ok-above .x-dd-drop-icon {
+    background-image: url(images/tree/drop-above.png);
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/ViewDropZone.scss:9 */
+.x-tree-drop-ok-below .x-dd-drop-icon {
+    background-image: url(images/tree/drop-below.png);
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/ViewDropZone.scss:13 */
+.x-tree-drop-ok-between .x-dd-drop-icon {
+    background-image: url(images/tree/drop-between.png);
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/ViewDropZone.scss:17 */
+.x-tree-ddindicator {
+    height: 1px;
+    border-width: 1px 0px 0px;
+    border-style: dotted;
+    border-color: green;
+}
+
+/* http://localhost:1843/classic/theme-base/sass/src/grid/feature/Grouping.scss:1 */
+.x-group-hd-container {
+    overflow: hidden;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/grid/feature/Grouping.scss:5 */
+.x-grid-group-hd {
+    white-space: nowrap;
+    outline: none;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/grid/feature/Grouping.scss:10 */
+.x-grid-group-title {
+    position: relative;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/grid/feature/Grouping.scss:14 */
+.x-grid-group-title:before {
+    position: absolute;
+    left: 0;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/grid/feature/Grouping.scss:21 */
+.x-grid-row-body-hidden,
+.x-grid-group-collapsed {
+    display: none;
+}
+
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/feature/Grouping.scss:1 */
+.x-grid-group-hd {
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: #d0d0d0;
+    padding: 8px 10px;
+    background: #fff;
+    cursor: pointer;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/feature/Grouping.scss:10 */
+.x-grid-group-hd-not-collapsible {
+    cursor: default;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/feature/Grouping.scss:14 */
+.x-grid-group-hd-collapsible .x-grid-group-title {
+    padding: 0 0 0 24px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-grid-group-hd-collapsible .x-grid-group-title:before {
+    content: "\f146";
+    font-size: 14px;
+    font-family: FontAwesome;
+    color: #919191;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/feature/Grouping.scss:36 */
+.x-grid-group-title {
+    color: #606060;
+    font: 400 13px/15px 'Open Sans', 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-grid-group-hd-collapsed .x-grid-group-title:before {
+    content: "\f0fe";
+    font-size: 14px;
+    font-family: FontAwesome;
+    color: #919191;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/feature/Grouping.scss:54 */
+.x-group-by-icon {
+    font: 16px/24px ExtJS;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-group-by-icon:before {
+    content: "\e607";
+}
+.x-tree-icon-custom{
+    margin-top: 2px;
+}
+.partner-tree .x-tree-icon:before{
+    content: "";
+}
+.partner-tree .x-tree-node-text{
+    margin-left: -25px;
+}
+.partner-tree .x-tree-node-text .x-fa{
+    color: #5fa2dd;
+}
+.order-confirmed{
+    color: green;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/View.scss:296 */
+.x-grid-cell-inner-treecolumn {
+    padding: 7px 10px 6px 6px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/ViewDropZone.scss:1 */
+.x-tree-drop-ok-append .x-dd-drop-icon {
+    background-image: url(images/tree/drop-append.png);
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/ViewDropZone.scss:5 */
+.x-tree-drop-ok-above .x-dd-drop-icon {
+    background-image: url(images/tree/drop-above.png);
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/ViewDropZone.scss:9 */
+.x-tree-drop-ok-below .x-dd-drop-icon {
+    background-image: url(images/tree/drop-below.png);
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/ViewDropZone.scss:13 */
+.x-tree-drop-ok-between .x-dd-drop-icon {
+    background-image: url(images/tree/drop-between.png);
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/tree/ViewDropZone.scss:17 */
+.x-tree-ddindicator {
+    height: 1px;
+    border-width: 1px 0px 0px;
+    border-style: dotted;
+    border-color: green;
+}
+
+/* http://localhost:1843/classic/theme-base/sass/src/grid/feature/Grouping.scss:1 */
+.x-group-hd-container {
+    overflow: hidden;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/grid/feature/Grouping.scss:5 */
+.x-grid-group-hd {
+    white-space: nowrap;
+    outline: none;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/grid/feature/Grouping.scss:10 */
+.x-grid-group-title {
+    position: relative;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/grid/feature/Grouping.scss:14 */
+.x-grid-group-title:before {
+    position: absolute;
+    left: 0;
+}
+/* http://localhost:1843/classic/theme-base/sass/src/grid/feature/Grouping.scss:21 */
+.x-grid-row-body-hidden,
+.x-grid-group-collapsed {
+    display: none;
+}
+
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/feature/Grouping.scss:1 */
+.x-grid-group-hd {
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: #d0d0d0;
+    padding: 8px 10px;
+    background: #fff;
+    cursor: pointer;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/feature/Grouping.scss:10 */
+.x-grid-group-hd-not-collapsible {
+    cursor: default;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/feature/Grouping.scss:14 */
+.x-grid-group-hd-collapsible .x-grid-group-title {
+    padding: 0 0 0 24px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-grid-group-hd-collapsible .x-grid-group-title:before {
+    content: "\f146";
+    font-size: 14px;
+    font-family: FontAwesome;
+    color: #919191;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/feature/Grouping.scss:36 */
+.x-grid-group-title {
+    color: #606060;
+    font: 400 13px/15px 'Open Sans', 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-grid-group-hd-collapsed .x-grid-group-title:before {
+    content: "\f0fe";
+    font-size: 14px;
+    font-family: FontAwesome;
+    color: #919191;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/feature/Grouping.scss:54 */
+.x-group-by-icon {
+    font: 16px/24px ExtJS;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-group-by-icon:before {
+    content: "\e607";
+}
+
+.x-grid-row-summary .x-grid-cell-inner-row-expander {
+    display: none;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowExpander.scss:1 */
+.x-grid-cell-inner-row-expander {
+    padding: 8px 8px 8px 8px;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowExpander.scss:14 */
+.x-grid-row-expander {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    color: #919191;
+    font: 14px/1 FontAwesome;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-grid-row-expander:before {
+    content: "\f146";
+}
+/* http://localhost:1843/classic/theme-neutral/sass/src/grid/plugin/RowExpander.scss:29 */
+.x-grid-row-collapsed .x-grid-row-expander {
+    font: 14px/1 FontAwesome;
+}
+/* http://localhost:1843/classic/theme-neutral/sass/etc/mixins/font-icon.scss:125 */
+.x-grid-row-collapsed .x-grid-row-expander:before {
+    content: "\f0fe";
+}
+.x-grid-rowbody {
+    font: 300 13px/19px 'Open Sans', 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
+    padding: 5px 10px 5px 10px;
+}
+.message-online {
+    color: red!important;    
+}
+.message-offline {
+    color: #dedede!important;    
+}
+.message-new {
+    font-weight: bold!important;    
+}
+
+.rating-static {
+    width: 60px;
+    height: 16px;
+    display: block;
+    background: url('images/rating.png') 0 0 no-repeat;
+}
+.rating-50 { background-position: 0 0; }
+.rating-40 { background-position: -12px 0; }
+.rating-30 { background-position: -24px 0; }
+.rating-20 { background-position: -36px 0; }
+.rating-10 { background-position: -48px 0; }
+.rating-0 { background-position: -60px 0; }
+
+.rating-5  { background-position: -48px -16px; }
+.rating-15 { background-position: -36px -16px; }
+.rating-25 { background-position: -24px -16px; }
+.rating-35 { background-position: -12px -16px; }
+.rating-45 { background-position: 0 -16px; }
+
+.message-user {display: inline-block; margin-right: 10px; font-weight: bold; color: #000055;font-size: 14px}
+.message-date {display: inline-block; margin-right: 10px; color: #AAA;}
+.message-text {}

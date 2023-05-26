@@ -1,0 +1,22 @@
+{
+  "name": "@lib/clog",
+  "version": "0.0.1",
+  "description": "> TODO: description",
+  "author": "mt800 <mt800@enovate-it.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/clog.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {},
+  "dependencies": {
+    "@lib/config": "^0.0.1"
+  }
+}

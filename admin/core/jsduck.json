@@ -1,0 +1,12 @@
+{
+    "--title": "Janusjs",
+    "--output": "static/docs",
+    "--": [
+        "static/admin/core",
+        "static/admin/js",
+        "src/Core",
+        "ext/src/ux/data/proxy",
+        "ext/src/ux/WebSocket.js",
+        "ext/src/ux/WebSocketManager.js"
+    ]
+}

@@ -1,0 +1,51 @@
+{
+  "server": {
+    "logs_file": "./daemon.log",
+    "process_name": "hse",
+    "num_workers": 1,
+    "checker_timeout": 1000,
+
+    "port": 8009,
+    "serverName": "localhost",
+    "nameSpace": "Crm",
+    "aliases": ["127.0.0.1"],
+    "aliasAction": "alias"
+  },
+  "currentApiVersion": "0.1",
+  "smsLimit": 2,
+  "tablePrefix": "hse_",
+  "debug": true,
+  "baseUrl": "http://localhost:8007",
+
+  "nameSpace": "Crm",
+
+  "use": [],
+  "pgsql": {
+    "user": "hse",
+    "database": "wialondb",
+    "password": "hse",
+    "host": "localhost",
+    "port": 5432,
+    "max": 10,
+    "idleTimeoutMillis": 30000,
+    "debugQuery": false,
+    "debug": false
+  },
+
+  "memcached": {
+    "servers": "localhost:11211",
+    "options": {}
+  },
+  "token": {
+    "lifetime": 86400,
+    "len": 32,
+    "sessPassLen": 3
+  },
+  "nats": {
+    "servers": "nats://localhost:4222",
+    "json": true
+  },
+  "uploadTmpDir": "tmp",
+  "testPassword": "4554",
+  "includes_dir": "conf"
+}

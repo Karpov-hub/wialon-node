@@ -1,0 +1,18 @@
+{
+  "name": "@lib/utils",
+  "version": "0.0.1",
+  "description": "common methods and variables",
+  "main": "lib/index.js",
+  "author": "vb127 <vb127@tadbox.com>",
+  "license": "ISC",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {},
+  "dependencies": {
+    "@lib/config": "^0.0.1"
+  }
+}

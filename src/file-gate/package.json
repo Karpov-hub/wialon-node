@@ -1,0 +1,43 @@
+{
+  "name": "file-gate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel src --out-dir ./dist --source-maps",
+    "watch": "babel-watch --watch src src/index.js",
+    "test1": "export NODE_ENV=localtest ; ./node_modules/.bin/mocha --colors -b --exit --require @babel/register",
+    "start": "forever start dist/index.js",
+    "stop": "forever stop dist/index.js",
+    "dstart": "node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@lib/config": "^0.0.1",
+    "@lib/fileprovider": "^0.0.1",
+    "@lib/memstore": "^0.0.1",
+    "@lib/pretest": "^0.0.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4",
+    "@babel/node": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/register": "^7.4.0",
+    "babel-plugin-transform-optional-chaining": "^7.0.0-beta.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-watch": "^7.0.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "chai-uuid": "^1.0.6",
+    "gate-server": "^1.0.0",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.18.11",
+    "crypto-js": "3.1.9-1"
+  }
+}

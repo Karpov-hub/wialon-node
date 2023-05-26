@@ -1,0 +1,23 @@
+{
+  "name": "jplatform",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.13.2"
+  },
+  "scripts": {
+    "start": "lerna run watch --parallel",
+    "fortest": "export NODE_ENV=localtest && lerna run watch --parallel --ignore admin-server",
+    "dev": "NODE_ENV=development lerna run watch --parallel",
+    "test": "lerna run test --scope=gate-server && lerna run test --scope=auth-service   && lerna run test --scope=support-service && lerna run test --scope=charts-service && lerna run test --scope=skeleton && lerna run test --scope=notifications-service && lerna run test --scope=plugin-service && lerna run test --scope=aggregator-service && lerna run test --scope=wialon-units-service",
+    "atest": "lerna run atest --scope=gate-server && lerna run atest --scope=auth-service && lerna run atest --scope=support-service && lerna run atest --scope=skeleton"
+  },
+  "workspaces": [
+    "packages/*",
+    "src/*",
+    "admin/",
+    "bots/*"
+  ],
+  "dependencies": {
+    "dockerode": "^3.2.0"
+  }
+}

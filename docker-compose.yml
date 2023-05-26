@@ -1,0 +1,72 @@
+version: "3"
+
+networks:
+  frontend:
+    ipam:
+      config:
+        - subnet: 172.21.0.0/24
+
+services:
+  serv:
+    build: ./
+
+    ports:
+      - "8012:8012"
+      - "8008:8008"
+    networks:
+      frontend:
+        ipv4_address: 172.21.0.2
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DB_CONN_STRING=${DB_CONN_STRING}
+      - LOG_MONGO_URI=${LOG_MONGO_URI}
+      - TELEGRAM_ALARM_BOT_TOKEN=${TELEGRAM_ALARM_BOT_TOKEN}
+    volumes:
+      - "/home/user2/reports:/home/user2/reports"
+      - "/home/user2/upload:/home/user2/upload"
+    restart: always
+  admin:
+    build:
+      context: ./
+      dockerfile: Dockerfile.admin
+
+    depends_on:
+      - memcached
+    ports:
+      - "8009:8009"
+    networks:
+      frontend:
+        ipv4_address: 172.21.0.3
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DB_CONN_STRING=${DB_CONN_STRING}
+      - LOG_MONGO_URI=${LOG_MONGO_URI}
+    volumes:
+      - "/home/user2/reports:/home/user2/reports"
+      - "/home/user2/upload:/home/user2/upload"
+    restart: always
+
+  memcached:
+    image: memcached
+    networks:
+      frontend:
+        ipv4_address: 172.21.0.4
+    restart: always
+
+  redis:
+    image: "redis:alpine"
+    networks:
+      frontend:
+        ipv4_address: 172.21.0.5
+    restart: always
+
+  nats:
+    image: "bitnami/nats:latest"
+    ports:
+      - 4222:4222
+      - 6222:6222
+      - 8222:8222
+    networks:
+      frontend:
+        ipv4_address: 172.21.0.6
+    restart: always

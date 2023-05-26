@@ -1,0 +1,15 @@
+{
+    "mail": {
+        "type": "SMTP",
+        "server": {
+            "host":"smtp.gmail.com",
+            "service": "gmail",
+            "auth": {
+                "user": "enovate170@gmail.com",
+                "pass": "xpg@1709"
+            }
+        },
+        "from": "Wialon <enovate170@gmail.com>",
+        "feddbackTo": "enovate170@gmail.com"
+    }
+}

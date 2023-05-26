@@ -1,0 +1,460 @@
+stages:
+  - build_app
+  - tests
+  - build
+  - deploy
+  - admin
+  - docker
+  - dockerstart
+
+testbuild:
+  stage: build
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - rsync -ramz --stats --delete ./packages $SSH_USER_HOST:/home/admin_dev/tests
+    - rsync -ramz --stats --delete ./src $SSH_USER_HOST:/home/admin_dev/tests
+    - rsync -ramz --stats --delete ./lerna.json $SSH_USER_HOST:/home/admin_dev/tests/lerna.json
+    - rsync -ramz --stats --delete ./package.json $SSH_USER_HOST:/home/admin_dev/tests/package.json
+    - rsync -ramz --stats --delete ./docs $SSH_USER_HOST:/home/admin_dev/tests
+    - rsync -ramz --stats --delete ./custom_report_generator $SSH_USER_HOST:/home/admin_dev/tests
+    - rsync -ramz --stats --delete ./preset_reports $SSH_USER_HOST:/home/admin_dev/tests
+    - rsync -ramz --stats --delete ./preset_reports/ $SSH_USER_HOST:/home/admin_dev/reports
+
+    - ssh $SSH_USER_HOST 'export PATH='$REMOTE_PATH' && cd /home/admin_dev/reports && for dir in */; do if [ -e $dir/results ];  then  continue; else mkdir -- "$dir/results"; fi; done ; cd /home/admin_dev/tests/custom_report_generator && docker build -t customreport .'
+
+  only:
+    - test
+    - dev
+
+tests:
+  stage: tests
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - ssh $SSH_USER_HOST 'export PATH='$REMOTE_PATH' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 12 && export NODE_ENV=test && cd /home/admin_dev/tests && killall node ; mkdir ./docs/json ; yarn && npx lerna run build && cd ./packages/db && npx sequelize-cli db:migrate ; npx sequelize-cli db:seed:all ; cd ../../ && npx lerna run start && npx lerna run stop && node packages/chai-documentator/lib/htmlgenerator.js'
+
+  only:
+    - test
+    - dev
+
+deploy_test:
+  stage: deploy
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - ssh $SSH_USER_HOST 'export PATH='$REMOTE_PATH' && export NODE_ENV=staging && export DB_CONN_STRING='$DB_CONN_STRING_TEST' ; export LOG_MONGO_URI='$LOG_MONGO_URI' ; export TELEGRAM_ALARM_BOT_TOKEN='$TELEGRAM_ALARM_BOT_TOKEN' ; killall node ; rm -R /home/admin_dev/dev ; mv /home/admin_dev/tests /home/admin_dev/dev ; mkdir /home/admin_dev/tests ; cd /home/admin_dev/dev && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 12 && cd packages/db && npx sequelize-cli db:migrate ; npx sequelize-cli db:seed:all ; cd ../../ && npx lerna run start && npx lerna run serve'
+  only:
+    - test
+
+testadmin:
+  image: kolbaskin/cmdnode
+  stage: admin
+  script:
+    - mkdir -p ~/.ssh
+    - echo "$SSH_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - chmod 755 ./.ci_admin_build.sh
+    - ./.ci_admin_build.sh
+    - cd /build
+    - rsync -rav --delete ./ $SSH_USER_HOST:/home/admin_dev/dev/admin
+
+    - ssh $SSH_USER_HOST 'export PATH='$REMOTE_PATH' && export NODE_ENV=staging && export DB_CONN_STRING='$DB_CONN_STRING_TEST' ; export LOG_MONGO_URI='$LOG_MONGO_URI' ; export TELEGRAM_ALARM_BOT_TOKEN='$TELEGRAM_ALARM_BOT_TOKEN' ; export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 12 && cd /home/admin_dev/dev && npx lerna bootstrap --scope=admin-server ; cd ./admin ; mkdir tmp; mkdir userdocs; mkdir userfiles; forever start server.js'
+
+  only:
+    - test
+
+# PRODUCTION -------------------------------------
+
+prodbuild_app:
+  stage: build_app
+  image: db154/janus-node:latest
+  script:
+    - mv admin admin1
+    - yarn --ignore-scripts --no-optional
+    - npx lerna bootstrap
+    - npx lerna run build --parallel
+    - mv admin1 admin
+  artifacts:
+    expire_in: 1 hr
+    untracked: true
+  only:
+    - prod
+
+prodtests:
+  stage: tests
+  image: docker:20.10.16
+  services:
+    - name: docker:20.10.16-dind
+      command: ["--registry-mirror", "https://registry-mirror.tadbox.com:7443"]
+  script:
+    - echo "$TEST_SERVER_CONFIG" >> test.env
+    - mkdir upload
+    - docker compose -f docker-compose-test.yml up --abort-on-container-exit --exit-code-from tests  --build
+    - ret=$(docker wait wialon-node-tests-1)
+    - if [ $ret == 0 ];  then  echo "Tests completed!"; else echo "Restart job!" && exit 1;  fi
+  artifacts:
+    expire_in: 1 hr
+    untracked: true
+  only:
+    - prod
+
+prodbuild_deploy:
+  stage: build
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PROD_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+    - ssh $SSH_PROD_HOST 'rm -R /home/backend/build ; mkdir /home/backend/build'
+
+    - "rsync -ramz --stats --delete ./packages $SSH_PROD_HOST:/home/backend/build"
+    - "rsync -ramz --stats --delete ./src $SSH_PROD_HOST:/home/backend/build"
+    - "rsync -ramz --stats --delete ./custom_report_generator $SSH_PROD_HOST:/home/backend/build"
+    - "rsync -ramz --stats --delete ./lerna.json $SSH_PROD_HOST:/home/backend/build/lerna.json"
+    - "rsync -ramz --stats --delete ./package.json $SSH_PROD_HOST:/home/backend/build/package.json"
+    - "rsync -ramz --stats --delete ./docker-compose.yml $SSH_PROD_HOST:/home/backend/build/docker-compose.yml"
+    - "rsync -ramz --stats --delete ./Dockerfile $SSH_PROD_HOST:/home/backend/build/Dockerfile"
+    - "rsync -ramz --stats --delete ./Dockerfile.admin $SSH_PROD_HOST:/home/backend/build/Dockerfile.admin"
+    - "rsync -ramz --stats --delete ./wait-for $SSH_PROD_HOST:/home/backend/build/wait-for"
+    - "rsync -ramz --stats --delete ./docs $SSH_PROD_HOST:/home/backend/build"
+    - "rsync -ramz --stats --omit-dir-times ./preset_reports/ $SSH_PROD_HOST:/home/user2/reports"
+    - "rsync -ramz --stats --delete ./node_modules $SSH_PROD_HOST:/home/backend/build"
+
+    - ssh $SSH_PROD_HOST 'export PATH='$PROD_PATH' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 16 && cd /home/user2/reports && for dir in */; do if [ -e $dir/results ];  then  continue; else mkdir -- "$dir/results"; fi; done'
+    - ssh $SSH_PROD_HOST 'export PATH='$PROD_PATH' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 16 && export NODE_ENV=production && export DB_CONN_STRING='$DB_PROD_CONN' && export LOG_MONGO_URI='$LOG_MONGO_URI' && export TELEGRAM_ALARM_BOT_TOKEN='$TELEGRAM_ALARM_BOT_TOKEN' && cd /home/backend/build/packages/db && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all'
+  only:
+    - prod
+
+.prodbuild:
+  stage: build
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PROD_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+    - ssh $SSH_PROD_HOST 'rm -R /home/backend/build ; mkdir /home/backend/build ; echo '$SSH_PASSWORD' | sudo -S rm -rf /home/user2/reports/*'
+
+    - "rsync -ramz --stats --delete ./packages $SSH_PROD_HOST:/home/backend/build"
+    - "rsync -ramz --stats --delete ./src $SSH_PROD_HOST:/home/backend/build"
+    - "rsync -ramz --stats --delete ./custom_report_generator $SSH_PROD_HOST:/home/backend/build"
+    - "rsync -ramz --stats --delete ./lerna.json $SSH_PROD_HOST:/home/backend/build/lerna.json"
+    - "rsync -ramz --stats --delete ./package.json $SSH_PROD_HOST:/home/backend/build/package.json"
+    - "rsync -ramz --stats --delete ./docker-compose.yml $SSH_PROD_HOST:/home/backend/build/docker-compose.yml"
+    - "rsync -ramz --stats --delete ./Dockerfile $SSH_PROD_HOST:/home/backend/build/Dockerfile"
+    - "rsync -ramz --stats --delete ./Dockerfile.admin $SSH_PROD_HOST:/home/backend/build/Dockerfile.admin"
+    - "rsync -ramz --stats --delete ./wait-for $SSH_PROD_HOST:/home/backend/build/wait-for"
+    - "rsync -ramz --stats --delete ./docs $SSH_PROD_HOST:/home/backend/build"
+    - "rsync -ramz --stats --omit-dir-times ./preset_reports/ $SSH_PROD_HOST:/home/user2/reports"
+
+    - ssh $SSH_PROD_HOST 'export PATH='$PROD_PATH' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 12 && yarn cache clean && cd /home/user2/reports && for dir in */; do if [ -e $dir/results ];  then  continue; else mkdir -- "$dir/results"; fi; done'
+    - ssh $SSH_PROD_HOST 'export PATH='$PROD_PATH' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 12 && cd /home/backend/build && yarn && mkdir ./docs/json ; npx lerna run build'
+  only:
+    - prod
+
+.proddeploy:
+  stage: deploy
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PROD_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - ssh $SSH_PROD_HOST 'export PATH='$PROD_PATH' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 12 && export NODE_ENV=production && export DB_CONN_STRING='$DB_PROD_CONN' && export LOG_MONGO_URI='$LOG_MONGO_URI' && export TELEGRAM_ALARM_BOT_TOKEN='$TELEGRAM_ALARM_BOT_TOKEN' && cd /home/backend/build/packages/db && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all'
+  only:
+    - prod
+
+prodadmin:
+  image: kolbaskin/cmdnode
+  stage: admin
+  script:
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PROD_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - chmod 755 ./.ci_admin_build.sh
+    - ./.ci_admin_build.sh
+    - cd /build
+    - "rsync -rav --delete ./ $SSH_PROD_HOST:/home/backend/build/admin"
+    - ssh $SSH_PROD_HOST 'export PATH='$PROD_PATH' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 16 && cd /home/backend/build && cd ./admin ; mkdir tmp; mkdir userdocs; mkdir userfiles'
+  only:
+    - prod
+
+.prodadmin:
+  image: kolbaskin/cmdnode
+  stage: admin
+  script:
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PROD_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - chmod 755 ./.ci_admin_build.sh
+    - ./.ci_admin_build.sh
+    - cd /build
+    - "rsync -rav --delete ./ $SSH_PROD_HOST:/home/backend/build/admin"
+    - ssh $SSH_PROD_HOST 'export PATH='$PROD_PATH' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 12 && cd /home/backend/build && npx lerna bootstrap --scope=admin-server ; cd ./admin ; mkdir tmp; mkdir userdocs; mkdir userfiles'
+  only:
+    - prod
+
+prodserver_start:
+  stage: docker
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PROD_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - ssh $SSH_PROD_HOST 'export PATH='$PROD_PATH' && export NODE_ENV=production && export DB_CONN_STRING='$DB_PROD_CONN' && export LOG_MONGO_URI='$LOG_MONGO_URI' && export TELEGRAM_ALARM_BOT_TOKEN='$TELEGRAM_ALARM_BOT_TOKEN' && cd /home/backend/build/custom_report_generator && docker build -t customreport . && sleep 5 && cd /home/backend/build && docker-compose up -d --build && sleep 30 && docker-compose restart && docker system prune -f'
+  only:
+    - prod
+
+.prodserver:
+  stage: docker
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PROD_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - ssh $SSH_PROD_HOST 'export PATH='$PROD_PATH' && export NODE_ENV=production && export DB_CONN_STRING='$DB_PROD_CONN' && export LOG_MONGO_URI='$LOG_MONGO_URI' && export TELEGRAM_ALARM_BOT_TOKEN='$TELEGRAM_ALARM_BOT_TOKEN' && cd /home/backend/build && docker-compose down ; docker rmi -f $(docker images -a -q) ; docker-compose build && echo "BUILD COMPLETED" && cd /home/backend/build/custom_report_generator && docker build -t customreport . && sleep 1'
+  only:
+    - prod
+
+.prodserverstart:
+  stage: dockerstart
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PROD_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - ssh $SSH_PROD_HOST 'export PATH='$PROD_PATH' && export NODE_ENV=production && export DB_CONN_STRING='$DB_PROD_CONN' && export LOG_MONGO_URI='$LOG_MONGO_URI' && export TELEGRAM_ALARM_BOT_TOKEN='$TELEGRAM_ALARM_BOT_TOKEN' && cd /home/backend/build && docker-compose down && sleep 15 && docker-compose up -d && sleep 30 && docker-compose restart && sleep 30'
+  only:
+    - prod
+
+# staging -------------------------------------
+
+build_app:
+  stage: build_app
+  image: db154/janus-node:latest
+  script:
+    - mv admin admin1
+    - yarn --ignore-scripts --no-optional
+    - npx lerna bootstrap
+    - npx lerna run build --parallel
+    - mv admin1 admin
+  artifacts:
+    expire_in: 1 hr
+    untracked: true
+  only:
+    - staging
+
+.stagetests:
+  stage: tests
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_STAGE_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+    - ssh $SSH_STAGE_HOST -p $SSH_STAGE_PORT 'rm -R /home/getgps/tests && mkdir /home/getgps/tests'
+
+    - rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./packages $SSH_STAGE_HOST:/home/getgps/tests
+    - rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./bots $SSH_STAGE_HOST:/home/getgps/tests
+    - rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./custom_report_generator $SSH_STAGE_HOST:/home/getgps/tests
+    - rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./src $SSH_STAGE_HOST:/home/getgps/tests
+    - rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./lerna.json $SSH_STAGE_HOST:/home/getgps/tests/lerna.json
+    - rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./package.json $SSH_STAGE_HOST:/home/getgps/tests/package.json
+    - rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./docs $SSH_STAGE_HOST:/home/getgps/tests
+    - rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./preset_reports $SSH_STAGE_HOST:/home/getgps/tests
+    - ssh $SSH_STAGE_HOST -p $SSH_STAGE_PORT 'export PATH='$STAGE_PATH' && export DB_CONN_STRING='$DB_TEST_CONN' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 16 && export NODE_ENV=test && docker restart build_nats_1 && docker stop build_admin_1 ; docker stop build_serv_1 ; killall node ; cd /home/getgps/tests && yarn cache clean && yarn && npx lerna bootstrap && mkdir docs/json ; mkdir upload ; mkdir reports; cd custom_report_generator ; docker build -t customreport . ; cd ../packages/db && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && sleep 1'
+
+    - ssh $SSH_STAGE_HOST -p $SSH_STAGE_PORT 'export PATH='$STAGE_PATH' && export DB_CONN_STRING='$DB_TEST_CONN' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 16 && echo 4 && killall node ; cd /home/getgps/tests && echo 5 && sleep 5 && echo 6 && echo "BUILD START" && npx lerna run build && echo "BUILD DOC" && npx lerna run builddocs && redis-cli FLUSHALL && export NODE_ENV=test && echo "RUN START" && npx lerna run start && sleep 30 && echo "START TEST" && npm run atest && killall node && node packages/chai-documentator/lib/htmlgenerator.js'
+  only:
+    - staging
+
+stagetests:
+  stage: tests
+  image: docker:20.10.16
+  services:
+    - name: docker:20.10.16-dind
+      command: ["--registry-mirror", "https://registry-mirror.tadbox.com:7443"]
+  script:
+    - echo "$TEST_SERVER_CONFIG" >> test.env
+    - docker compose -f docker-compose-test.yml up --abort-on-container-exit --exit-code-from tests  --build
+    - ret=$(docker wait wialon-node-tests-1)
+    - if [ $ret == 0 ];  then  echo "Tests completed!"; else echo "Restart job!" && exit 1;  fi
+  artifacts:
+    expire_in: 1 hr
+    untracked: true
+  only:
+    - staging
+
+stage_build_deploy:
+  stage: build
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_STAGE_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+    - ssh $SSH_STAGE_HOST -p $SSH_STAGE_PORT 'rm -R /home/getgps/build ; mkdir /home/getgps/build'
+
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./packages $SSH_STAGE_HOST:/home/getgps/build'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./src $SSH_STAGE_HOST:/home/getgps/build'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./custom_report_generator $SSH_STAGE_HOST:/home/getgps/build'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./lerna.json $SSH_STAGE_HOST:/home/getgps/build/lerna.json'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./package.json $SSH_STAGE_HOST:/home/getgps/build/package.json'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./docker-compose.yml $SSH_STAGE_HOST:/home/getgps/build/docker-compose.yml'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./Dockerfile $SSH_STAGE_HOST:/home/getgps/build/Dockerfile'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./Dockerfile.admin $SSH_STAGE_HOST:/home/getgps/build/Dockerfile.admin'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./wait-for $SSH_STAGE_HOST:/home/getgps/build/wait-for'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./docs $SSH_STAGE_HOST:/home/getgps/build'
+    - 'rsync -ramz --stats -e "ssh -p $SSH_STAGE_PORT" ./preset_reports/ $SSH_STAGE_HOST:/home/getgps/reports'
+    - 'rsync -ramz --stats -e "ssh -p $SSH_STAGE_PORT" ./preset_reports/ $SSH_STAGE_HOST:/home/user2/reports'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./node_modules $SSH_STAGE_HOST:/home/getgps/build'
+
+    - ssh $SSH_STAGE_HOST -p $SSH_STAGE_PORT 'export PATH='$STAGE_PATH' && cd /home/getgps/reports && for dir in */; do if [ -e $dir/results ];  then  continue; else mkdir -- "$dir/results"; fi; done && cd /home/user2/reports && for dir in */; do if [ -e $dir/results ];  then  continue; else mkdir -- "$dir/results"; fi; done'
+
+    - ssh $SSH_STAGE_HOST -p $SSH_STAGE_PORT 'export PATH='$STAGE_PATH' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 12 && export NODE_ENV=staging && export DB_CONN_STRING='$DB_STAGE_CONN' && export LOG_MONGO_URI='$LOG_MONGO_URI' && export TELEGRAM_ALARM_BOT_TOKEN='$TELEGRAM_ALARM_BOT_TOKEN' && cd /home/getgps/build/packages/db && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all'
+  only:
+    - staging
+
+.stagebuild:
+  stage: build
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_STAGE_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+    - ssh $SSH_STAGE_HOST -p $SSH_STAGE_PORT 'rm -R /home/getgps/build ; mkdir /home/getgps/build'
+
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./packages $SSH_STAGE_HOST:/home/getgps/build'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./src $SSH_STAGE_HOST:/home/getgps/build'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./custom_report_generator $SSH_STAGE_HOST:/home/getgps/build'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./lerna.json $SSH_STAGE_HOST:/home/getgps/build/lerna.json'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./package.json $SSH_STAGE_HOST:/home/getgps/build/package.json'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./docker-compose.yml $SSH_STAGE_HOST:/home/getgps/build/docker-compose.yml'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./Dockerfile $SSH_STAGE_HOST:/home/getgps/build/Dockerfile'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./Dockerfile.admin $SSH_STAGE_HOST:/home/getgps/build/Dockerfile.admin'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./wait-for $SSH_STAGE_HOST:/home/getgps/build/wait-for'
+    - 'rsync -ramz --stats --delete -e "ssh -p $SSH_STAGE_PORT" ./docs $SSH_STAGE_HOST:/home/getgps/build'
+    - 'rsync -ramz --stats -e "ssh -p $SSH_STAGE_PORT" ./preset_reports/ $SSH_STAGE_HOST:/home/getgps/reports'
+
+    - ssh $SSH_STAGE_HOST -p $SSH_STAGE_PORT 'export PATH='$STAGE_PATH' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 12 && yarn cache clean && npm cache clean && cd /home/getgps/reports && for dir in */; do if [ -e $dir/results ];  then  continue; else mkdir -- "$dir/results"; fi; done ; cd /home/getgps/build && yarn && mkdir ./docs/json ; npx lerna run build'
+  only:
+    - staging
+
+.stagedeploy:
+  stage: deploy
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_STAGE_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - ssh $SSH_STAGE_HOST -p $SSH_STAGE_PORT 'export PATH='$STAGE_PATH' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 12 && export NODE_ENV=staging && export DB_CONN_STRING='$DB_STAGE_CONN' && export LOG_MONGO_URI='$LOG_MONGO_URI' && export TELEGRAM_ALARM_BOT_TOKEN='$TELEGRAM_ALARM_BOT_TOKEN' && cd /home/getgps/build/packages/db && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all'
+  only:
+    - staging
+
+stageadmin:
+  image: kolbaskin/cmdnode
+  stage: admin
+  script:
+    - mkdir -p ~/.ssh
+    - echo "$SSH_STAGE_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - chmod 755 ./.ci_admin_build.sh
+    - ./.ci_admin_build.sh
+    - cd /build
+    - 'rsync -rav --delete -e "ssh -p $SSH_STAGE_PORT" ./ $SSH_STAGE_HOST:/home/getgps/build/admin'
+    - ssh $SSH_STAGE_HOST -p $SSH_STAGE_PORT 'export PATH='$STAGE_PATH' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 16 && cd /home/getgps/build && cd ./admin ; mkdir tmp; mkdir userdocs; mkdir userfiles'
+  only:
+    - staging
+
+.stageadmin:
+  image: kolbaskin/cmdnode
+  stage: admin
+  script:
+    - mkdir -p ~/.ssh
+    - echo "$SSH_STAGE_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - chmod 755 ./.ci_admin_build.sh
+    - ./.ci_admin_build.sh
+    - cd /build
+    - 'rsync -rav --delete -e "ssh -p $SSH_STAGE_PORT" ./ $SSH_STAGE_HOST:/home/getgps/build/admin'
+    - ssh $SSH_STAGE_HOST -p $SSH_STAGE_PORT 'export PATH='$STAGE_PATH' && export NVM_DIR=~/.nvm && source ~/.nvm/nvm.sh && nvm use 16 && cd /home/getgps/build && npx lerna bootstrap --scope=admin-server ; cd ./admin ; mkdir tmp; mkdir userdocs; mkdir userfiles'
+  only:
+    - staging
+
+stageserver:
+  stage: docker
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_STAGE_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - ssh $SSH_STAGE_HOST -p $SSH_STAGE_PORT 'export PATH='$STAGE_PATH' && export NODE_ENV=staging && export DB_CONN_STRING='$DB_STAGE_CONN' && export LOG_MONGO_URI='$LOG_MONGO_URI' && export TELEGRAM_ALARM_BOT_TOKEN='$TELEGRAM_ALARM_BOT_TOKEN' && cd /home/getgps/build && cd /home/getgps/build/custom_report_generator && docker build -t customreport . && sleep 5 && docker restart docs_swagger-ui_1 && cd /home/getgps/build && docker-compose up -d --build && sleep 30 && docker-compose restart && docker system prune -f'
+  only:
+    - staging
+
+.stageserver:
+  stage: docker
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_STAGE_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - ssh $SSH_STAGE_HOST -p $SSH_STAGE_PORT 'export PATH='$STAGE_PATH' && export NODE_ENV=staging && export DB_CONN_STRING='$DB_STAGE_CONN' && export LOG_MONGO_URI='$LOG_MONGO_URI' && export TELEGRAM_ALARM_BOT_TOKEN='$TELEGRAM_ALARM_BOT_TOKEN' && cd /home/getgps/build && docker-compose down ; docker rmi -f $(docker images -a -q) ; docker-compose build && echo "BUILD COMPLETED" && cd /home/getgps/build/custom_report_generator && docker build -t customreport . && sleep 5 && docker restart docs_swagger-ui_1 && docker-compose down && sleep 15 && docker-compose up -d && sleep 30 && docker-compose restart'
+  only:
+    - staging
+
+.stageserverstart:
+  stage: dockerstart
+  image: alpine
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_STAGE_KEY" >> ~/.ssh/id_dsa
+    - chmod 600 ~/.ssh/id_dsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - ssh $SSH_STAGE_HOST -p $SSH_STAGE_PORT 'export PATH='$STAGE_PATH' && export NODE_ENV=staging && export DB_CONN_STRING='$DB_STAGE_CONN' && export LOG_MONGO_URI='$LOG_MONGO_URI' && export TELEGRAM_ALARM_BOT_TOKEN='$TELEGRAM_ALARM_BOT_TOKEN' && cd /home/getgps/build && docker restart docs_swagger-ui_1 && docker-compose down && sleep 15 && docker-compose up -d && sleep 30 && docker-compose restart'
+  only:
+    - staging

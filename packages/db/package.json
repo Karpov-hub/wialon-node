@@ -1,0 +1,17 @@
+{
+  "name": "@lib/db",
+  "version": "0.0.1",
+  "main": "models/index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@lib/base": "^0.0.1",
+    "@lib/config": "^0.0.1",
+    "config": "^3.2.2",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.3",
+    "sequelize-cli": "^5.5.0"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "port": 3000,
+  "apiVersion": "0.0.0",
+  "nats": {
+    "servers": "nats://localhost:4222",
+    "json": true
+  },
+  "wialon_hosting": "http://localhost:8015",
+  "sendNotifications": true,
+  "log": {
+    "folder": "internal",
+    "storagePeriod": "30d",
+    "fileMaxSize": "1m",
+    "transports": {
+      "file": false,
+      "graylog": false,
+      "mongo": false
+    },
+    "consoleLogLevel": "info"
+  },
+  "wialon_token": "21c2af11b22a73564a4ab25e78eaea13001D6C7A87C4D7C01875595A65067479C8150E42",
+  "DEFAULT_HOST_WITHOUT_AJAX": "http://localhost:8015/fuc",
+  "DEFAULT_HOST": "http://localhost:8015/fuc/wialon/ajax.html?",
+  "CHARTS_HOST": "http://localhost:8015/charts",
+  "REPORT_REQ_EMAIL_CC": "id102@tadbox.com",
+  "LOCAL_PARAMETER_FOR_SALT": "zYX#Rh5V29@D"
+}

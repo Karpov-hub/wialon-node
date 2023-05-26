@@ -1,0 +1,8 @@
+{
+  "messages": {
+    "signSubject": "Sign a document",
+    "signBody": " <a href='{uri}'>Goto the document profile</a>",
+    "unsignSubject": "Disable a document",
+    "unsignBody": "<p><a href='{uri}'>Goto the document profile.</a></p><p>{node}</p>"
+  }
+}

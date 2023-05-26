@@ -1,0 +1,45 @@
+postgresql://postgres:Passw0rd@91.210.169.253/wialondb
+
+GRANT CONNECT ON SCHEMA wialontestdb TO postgres;
+
+grant all privileges on database wialontestdb to postgres;
+
+
+ssh prod key: -----BEGIN RSA PRIVATE KEY-----
+MIIEpQIBAAKCAQEAp6MWShAWCjf0yT9BzI0uPH7za5zykJZ1C0XLEZBOeBejpFjj
+8iHtA5+/ih6Ij+aBZyS/tEqIk2oOCFLBDhk+7rFgxFm+t8dHAoVkjqXSYdXymoXr
+LrYsD61O83pNIY1qAfWLn7cX9rL3rOL/QsuvHJqPx5gdxt7odiviRfPe5Pf2CmQA
+Av8AFAvWL90IW+eHX18PRHELXJ9SlEq6JJleUDb3v+Hgh7l9gGew2qv1w2Bqo5u3
+aLTJwCGmDxtj8AZ+cJ9ddhb8jrNcwRgrvGcnaY7v/6ozpO2wrRgwixyVmYHvitvG
+Z7hcbXVw63rMJZhhnL8v3IW9kGT+MJdAGA9kdQIDAQABAoIBAQCYt4I+xpjNhlyC
+WhZfet58TksD5l80SV0nf9WXkpdp4F88AZ7nnvCFNKsR8O8H6T5J8LiUTrJNWXif
+LISji2xBl2ZIelm8otaV/V+2dGpMptP04bt3Oo65WXFrbieGQYYpcsBYKDy0iiYI
+YmOZPmWw8T2632GBIuEzhpcEkz6j56eNTwNgMrvZhkQBhk6H8TAQBVueF6sf3AxU
+YknsXuBRRK6XXfEG+f5OtLgJS4Qw5h+gq4xLKRrzyiOO+lw03GWc2wLxpwwhpv6G
+Pazff0w4hbrOB9zcmXagJ9XgQZXDkZiY4PidYG64xuIasnhTm36LbQVYjQSl8knG
+sqpjapkBAoGBANcoINmpj+h7uwI42up/0uSKQjaFkskZMY+A6ViRY/PHAbcYVrC/
+Nf3NkIU8UsB67VIVzYvy0LJrM0VLTTywkGs8Yol9ndTK+FRL+bAyDFGf6iKuSlwl
+NVvSinYrNGI5+lYcXwCStZF1JBPOXj8OXP/4q6ZlY2zsHMWgx1OL0ZXpAoGBAMd1
+qqM/k/M3TIz+aF9RBOzruqg6GmuZma+FegSEl6N6Q9TtVHjt9Yg8p7w/JMUylsSw
+eLwwRJei+2Gm5avUo/YTaEpLX78jhjTSk1aKRLGq+ApB5Ho2C5qv0blhJOy42zYL
+5SYpJo2HZ3E1TzzDLJ9AwU94W9o3cdTFegaXeKatAoGBAJmIKxjnZKezU1lclOrt
+V+J5vpIFcx9JeRI8HUd0SGz2v4SWO5ZYfACmpdBNoYd0sND4efq5xK7szGNQPsdl
+/0hmiLIwD2Z/iAEvTferXxsIEB27XZivfIoPjXqRjgnh8X9tM2XHSwWHH716b8pz
+R23pVyOgCfj56/Yiqto1VdOxAoGBAIxpCdln7Ufe2tW6VlEbIMOD4l+An461j1nf
+NZkumezsKgoflEKZCSqBwHalYMYtKbOGo0efFvpEMoB4099VjqKw4M7EJr/QSy6u
+OihGp7sGpxvZbPSXTS30rUe52huGulJep05o04n4Etq/82rL3oKxPCQsj0SbmVd2
+OMOhJ771AoGAWf6gerjulXkG5EZZUvVGxvmFub60LcCM+6GjbD3C+bqEk01R3RZU
+c7rg1PS4OYBJQcQO3o3/Tp2glryUAKA0zyLwLsRi6saVNShE4Q2o7Q7M7IuUucFo
+agVagviZMmgDph2tIy4nkJ20wJJjnjsHskwCyydtmusa3l9Jyz8s/CI=
+-----END RSA PRIVATE KEY-----
+
+
+prod host: 
+max@84.201.184.125
+
+prod path: 
+/home/user1/.nvm/versions/node/v12.16.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+
+
+prod conn string: 
+postgres://user1:ve8cwOK1crfj@rc1b-kz2x9uyuqrgqzyjy.mdb.yandexcloud.net:6432/db1

@@ -1,0 +1,53 @@
+{
+  "server": {
+    "logs_file": "./daemon.log",
+    "process_name": "wln",
+    "num_workers": 1,
+    "checker_timeout": 1000,
+
+    "port": 8009,
+    "serverName": "0.0.0.0",
+    "nameSpace": "Crm",
+    "aliases": ["127.0.0.1"],
+    "aliasAction": "alias"
+  },
+  "currentApiVersion": "0.1",
+  "smsLimit": 2,
+  "tablePrefix": "hse_",
+  "debug": true,
+  "baseUrl": "http://localhost:8009",
+  "frontUrl": "https://repogen.getgps.pro/",
+  "nameSpace": "Crm",
+
+  "userInfo": {
+    "realmToken": "YTRkZWdTOWFMWGFLSlQ1ZzpQSGJNQjg4ekpOT1BldHBkRk1wNzJKTEt4UmE4cDY=",
+    "roleLabel": "user"
+  },
+
+  "use": [],
+  "pgsql": {
+    "use_env_variable": "DB_CONN_STRING",
+    "port": 5432,
+    "max": 10,
+    "idleTimeoutMillis": 30000,
+    "debugQuery": false,
+    "debug": false
+  },
+
+  "memcached": {
+    "servers": "memcached:11211",
+    "options": {}
+  },
+  "token": {
+    "lifetime": 86400,
+    "len": 32,
+    "sessPassLen": 3
+  },
+  "nats": {
+    "servers": ["nats://172.21.0.6:4222"],
+    "json": true
+  },
+  "uploadTmpDir": "tmp",
+  "testPassword": "4554",
+  "includes_dir": "conf"
+}

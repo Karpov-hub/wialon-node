@@ -1,0 +1,27 @@
+#FROM mhart/alpine-node:16 As build
+FROM node:16.19-alpine As build
+
+WORKDIR /app
+
+COPY wait-for /app/wait-for
+COPY package.json /app/package.json
+COPY lerna.json /app/lerna.json
+
+COPY admin /app/admin
+COPY admin/package.json /app/admin/package.json
+
+COPY packages /app/packages
+
+RUN apk add --update git python3 build-base curl bash && \
+    echo "Fixing PhantomJS" && \
+    curl -Ls "https://github.com/dustinblackman/phantomized/releases/download/2.1.1/dockerized-phantomjs.tar.gz" | tar xz -C / && \
+    echo "Installing node modules" && \
+    sed -i '/postinstall/d' package.json && \
+    yarn --ignore-scripts --production --no-optional && npx lerna bootstrap
+
+RUN apk add --no-cache py3-pip make gcc g++
+
+FROM mhart/alpine-node:slim-16
+COPY --from=build /app /app
+WORKDIR /app
+CMD ["node", "/app/admin/server.js"]
